@@ -26,4 +26,4 @@ class Person:
         
         tree = gfg.ElementTree(root) 
         
-        return tree
+        return gfg.tostring(root)

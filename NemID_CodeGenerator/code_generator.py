@@ -1,3 +1,5 @@
+# Created by Jakob
+
 from flask import request, Response, Flask
 import json
 from db_handler import authenticate_nem_id, generate_auth_log
@@ -15,11 +17,13 @@ def api_code_generator():
     nem_id_entity = json.loads(request.data)
 
     # exstract data
-    nem_id_code = nem_id_entity['nemIdCode']
-    nem_id = nem_id_entity['nemId']
+    nem_id_code = nem_id_entity.get('nemIdCode')
+    nem_id = nem_id_entity.get('nemId')
 
     # authenticate user
-    user_id = authenticate_nem_id(nem_id, nem_id_code)
+    user_id = None
+    if (nem_id is not None and nem_id_code is not None):
+        user_id = authenticate_nem_id(nem_id, nem_id_code)
 
     if user_id is None:
         # create response body

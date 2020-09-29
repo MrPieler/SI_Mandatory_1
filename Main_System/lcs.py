@@ -1,3 +1,5 @@
+# Created by Mikkel and Jakob
+
 import pathlib
 import pandas as pd
 from random import randint
@@ -8,7 +10,7 @@ import msgpack
 from person import Person
 
 cwd = pathlib.Path(__file__).parent.absolute()
-base_url = "http://localhost:8080/"
+base_url = "http://127.0.0.1:8080"
 
 def gen_cpr(day, month, year):
     random_digits = f"{randint(0,9)}{randint(0,9)}{randint(0,9)}{randint(0,9)}"
@@ -30,8 +32,9 @@ if __name__ == "__main__":
             row["Phone"],
             row["Country"])
             
-        response = requests.post(f"{base_url}/nemID", person.serialize_xml())
-        person.nemID = response.content["nemID"]
+        headers = {"Content-Type": "application/xml"}
+        response = requests.post(f"{base_url}/nemId", data=person.serialize_xml(), headers=headers)
+        person.nemID = json.loads(response.content)["nemID"]
 
         with open(f"{cwd}/msgpack_files/{person.cpr}.msgpack", "wb") as outfile:
             packed = msgpack.packb(person.__dict__)

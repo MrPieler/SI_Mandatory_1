@@ -1,3 +1,5 @@
+# Created by Mikkel
+
 from flask import request, Response, Flask
 import json
 
@@ -6,12 +8,13 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 
-@app.route("/generate-password-nemID", methods=["POST"])
+@app.route("/generate-password-nemid", methods=["POST"])
 def api_nemID_generator():
 
     # exstract data
-    nemID = request.args.get("nemId")
-    cpr = request.args.get("cpr")
+    nemID = request.json.get("nemId")
+    cpr = request.json.get("cpr")
+
 
     if (cpr is None or nemID is None):
         # create response body

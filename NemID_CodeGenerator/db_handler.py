@@ -1,11 +1,16 @@
+# Created by Jakob
+
 import sqlite3
 import pathlib
 
+
 #TODO make path work on other computers as well
+cwd = pathlib.Path(__file__).parent.absolute()
+db_path = f'{cwd.parent}/NemID_ESB/nem_id_database.sqlite'
 
 def authenticate_nem_id(nem_id, nem_id_code):
     # connect to DB
-    db = sqlite3.connect(r'c:\Users\Jakob\Desktop\Mandatory_1\nem_id_database.sqlite')
+    db = sqlite3.connect(db_path)
     
     # create cursor
     db_cursor = db.cursor()
@@ -25,7 +30,7 @@ def authenticate_nem_id(nem_id, nem_id_code):
 
 def generate_auth_log(user_id, code):
      # connect to DB
-    db = sqlite3.connect(r'c:\Users\Jakob\Desktop\Mandatory_1\nem_id_database.sqlite')
+    db = sqlite3.connect(db_path)
     
     # create cursor
     db_cursor = db.cursor()
@@ -36,6 +41,3 @@ def generate_auth_log(user_id, code):
     db_cursor.execute(query, data)
     db.commit()
         
-if __name__ == "__main__":
-    cwd = pathlib.Path(__file__).parents[0].absolute()
-    print(cwd)

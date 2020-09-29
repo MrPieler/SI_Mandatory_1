@@ -19,11 +19,13 @@ app.get('/test', (req, res) =>{
 
 app.post('/nemId', xmlparser({trim: false, explicitArray: false}), async(req, res, next) =>{
     let cpr = req.body.person.cprnumber[0];
+    console.log("CPR:" + cpr)
     let email = req.body.person.email[0];
+    console.log("EMAIL: " + email)
     let nemId = '';
-    axios.post('http://localhost:8088/generate-nemId', {cpr: cpr, email: email}).then(response =>{
+    axios.post('http://localhost:8088/generate-nemid', {cpr: cpr, email: email}).then(response =>{
         nemId = response.data.nemId;
-        axios.post('http://localhost:8089/generate-password-nemID', {nemId: nemId, cpr:cpr}).then(re => {
+        axios.post('http://localhost:8089/generate-password-nemid', {nemId: nemId, cpr:cpr}).then(re => {
             let query = "INSERT INTO user(CPR, NemID, Password) VALUES(?,?,?)";
             db.run(query, [cpr, nemId, re.data.nemIdPassword], (err) =>{
         if(err){

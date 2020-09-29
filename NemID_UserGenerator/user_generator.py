@@ -1,3 +1,5 @@
+# Created by Mikkel
+
 from flask import request, Response, Flask
 import json
 from random import randint
@@ -7,12 +9,12 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 
-@app.route("/generate-nemID", methods=["POST"])
+@app.route("/generate-nemid", methods=["POST"])
 def api_nemID_generator():
 
     # exstract data
-    cpr = request.args.get("cpr")
-    email = request.args.get("email")
+    cpr = request.json.get("cpr")
+    email = request.json.get("email")
 
     if (cpr is None or email is None):
         # create response body
