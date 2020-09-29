@@ -13,17 +13,17 @@ class Person:
         self.nemID = nemID
 
     def serialize_xml(self):
-            root = gfg.Element("Person") 
-            
-            a1 = gfg.SubElement(root, "FirstName") 
-            a1.text = self.first_name
-            a2 = gfg.SubElement(root, "LastName") 
-            a2.text = self.last_name
-            a3 = gfg.SubElement(root, "CprNumber")
-            a3.text = self.cpr
-            a4 = gfg.SubElement(root, "Email")
-            a4.text = self.email
-            
-            tree = gfg.ElementTree(root) 
-            
-            return tree
+        root = gfg.Element("Person") 
+        
+        a1 = gfg.SubElement(root, "FirstName") 
+        a1.text = self.first_name
+        a2 = gfg.SubElement(root, "LastName") 
+        a2.text = self.last_name
+        a3 = gfg.SubElement(root, "CprNumber")
+        a3.text = self.cpr
+        a4 = gfg.SubElement(root, "Email")
+        a4.text = self.email
+        
+        tree = gfg.ElementTree(root) 
+        
+        return tree
